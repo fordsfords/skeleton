@@ -87,9 +87,9 @@ int main(int argc, char **argv)
       break;
 
     case 2:
-      fprintf(stderr, "PERR\n");
     {
       FILE *perr_fp;
+      fprintf(stderr, "PERR\n");
       perr_fp = fopen("file_not_exist", "r");
       if (perr_fp == NULL) {
         PERR("errno should be 'file not found':");
@@ -100,9 +100,9 @@ int main(int argc, char **argv)
     }
 
     case 3:
-      fprintf(stderr, "EOK0\n");
     {
       FILE *perr_fp;
+      fprintf(stderr, "EOK0\n");
       perr_fp = fopen("skeleton.c", "r");
       if (perr_fp == NULL) {
         ABRT("Internal test failure: 'skeleton.c' appears to not exist");
@@ -114,9 +114,9 @@ int main(int argc, char **argv)
     }
 
     case 4:
-      fprintf(stderr, "ENULL\n");
     {
       FILE *perr_fp;
+      fprintf(stderr, "ENULL\n");
       ENULL(perr_fp = fopen("skeleton.c", "r")); /* should be OK. */
       ENULL(perr_fp = fopen("file_not_exist", "r")); /* should fail. */
       break;
@@ -126,6 +126,33 @@ int main(int argc, char **argv)
       fprintf(stderr, "ABRT\n");
       ABRT("ABRT test");
       break;
+
+    case 6:
+      fprintf(stderr, "SLEEP_SEC\n");
+      SLEEP_SEC(1);
+      fprintf(stderr, "Done\n");
+      break;
+
+    case 7:
+      fprintf(stderr, "SLEEP_MS 1000\n");
+      SLEEP_MS(1000);
+      fprintf(stderr, "Done\n");
+      break;
+
+    case 8:
+    {
+      char *str, *word, *context;
+
+      fprintf(stderr, "STRTOK_PORT\n");
+      str = strdup("abc,xyz,123");
+      for (word = strtok_r(str, ",", &context);
+          word != NULL;
+          word = strtok_r(NULL, ",", &context)) {
+        printf("word='%s'\n", word);
+      }
+
+      break;
+    }
 
     default: /* ABRT */
       ABRT("unknown option, aborting.");

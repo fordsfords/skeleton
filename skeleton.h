@@ -16,6 +16,16 @@
 extern "C" {
 #endif
 
+#ifdef _WIN32
+  #define SLEEP_SEC(s_) Sleep((s_)*1000)
+  #define SLEEP_MS Sleep
+  #define STRTOK_PORT strtok_s
+#else
+  #define SLEEP_SEC sleep
+  #define SLEEP_MS(ms_) usleep((ms_)*1000)
+  #define STRTOK_PORT strtok_r
+#endif
+
 /* Error handling macros. These print to stderr and exit(1), or in
  * some cases abort. Most real programs would do something better.
  */
