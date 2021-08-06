@@ -1,4 +1,7 @@
-/* skeleton.c */
+/* skeleton.c - typical starting point for how I like to write command-line
+ * tools. See https://github.com/fordsfords/skeleton
+ * This tries to be portable between Mac, Linux, and Windows.
+ */
 /*
 # This code and its documentation is Copyright 2002-2021 Steven Ford
 # and licensed "public domain" style under Creative Commons "CC0":
@@ -17,55 +20,20 @@
 #ifdef _WIN32
   #include <winsock2.h>
   #define SLEEP(s) Sleep((s)*1000)
-  /* Is there a proper Win equiv to abort()? */
-  #define ABORT() do { *((char *)(0)) = 0xff; }
 #else
   #include <stdlib.h>
   #include <unistd.h>
   #define SLEEP(s) sleep(s)
-  #define ABORT() abort()
 #endif
 
-
-#ifdef _WIN32
-  /* PERR is non-portable to Windows and needs a proper equiv. */
-  #define PERR(s_) do { \
-    char b_[256]; \
-    fprintf(stderr, "ERROR (%s line %d): %s errno=%u\n", \
-      __FILE__, __LINE__, s_, errno); \
-    fflush(stderr); \
-    ABORT(); \
-  } while (0)
-#else
-  #define PERR(s_) do { \
-    fprintf(stderr, "ERROR (%s line %d): %s errno=%u ('%s')\n", \
-      __FILE__, __LINE__, s_, errno, strerror(errno)); \
-    fflush(stderr); \
-    ABORT(); \
-  } while (0)
-#endif
-
-#define ERR(s_) do { \
-  fprintf(stderr, "ERROR (%s line %d): %s\n", \
-    __FILE__, __LINE__, s_); \
-  fflush(stderr); \
-  ABORT(); \
-} while (0)
-
-#define ASSRT(cond_) do { \
-  if (! (cond_)) { \
-    fprintf(stderr, "\n%s:%d, ERROR: '%s' not true\n", \
-      __FILE__, __LINE__, #cond_); \
-    abort(); \
-  } \
-} while (0)
+#include "skeleton.h"
 
 
 /* Options and their defaults */
-char *o_conf_file = NULL;
+int o_testnum = 0;
 
 
-char usage_str[] = "Usage: skeleton [-h] [-c conf_file]";
+char usage_str[] = "Usage: skeleton [-h] [-t testnum]";
 
 void usage(char *msg) {
   if (msg) fprintf(stderr, "%s\n", msg);
@@ -76,8 +44,8 @@ void usage(char *msg) {
 void help() {
   fprintf(stderr, "%s\n", usage_str);
   fprintf(stderr, "where:\n"
-                  "  -h           : print help\n"
-                  "  -c conf_file : config file\n");
+                  "  -h : print help\n"
+                  "  -t testnum : run specified test\n");
   exit(0);
 }
 
@@ -93,10 +61,10 @@ int main(int argc, char **argv)
   if (wsStat != 0) {printf("line %d: wsStat=%d\n",__LINE__,wsStat);exit(1);}
 #endif
 
-  while ((opt = getopt(argc, argv, "hc:")) != EOF) {
+  while ((opt = getopt(argc, argv, "ht:")) != EOF) {
     switch (opt) {
-      case 'c':
-        o_conf_file = strdup(optarg);
+      case 't':
+        SAFE_ATOI(optarg, o_testnum);
         break;
       case 'h':
         help();
@@ -108,8 +76,59 @@ int main(int argc, char **argv)
 
   if (optind != argc) { usage("Extra parameter(s)"); }
 
-  if (o_conf_file) {
-    printf("Config file=%s\n", o_conf_file);
+  switch(o_testnum) {
+    case 0:  /* no test */
+      break;
+
+    case 1:
+      fprintf(stderr, "ASSRT\n");
+      ASSRT(o_testnum == 1 && "internal test fail");
+      ASSRT(o_testnum != 1 && "should fail");
+      break;
+
+    case 2:
+      fprintf(stderr, "PERR\n");
+    {
+      FILE *perr_fp;
+      perr_fp = fopen("file_not_exist", "r");
+      if (perr_fp == NULL) {
+        PERR("errno should be 'file not found':");
+      } else {
+        ABRT("Internal test failure: 'file_not_exist' appears to exist");
+      }
+      break;
+    }
+
+    case 3:
+      fprintf(stderr, "EOK0\n");
+    {
+      FILE *perr_fp;
+      perr_fp = fopen("skeleton.c", "r");
+      if (perr_fp == NULL) {
+        ABRT("Internal test failure: 'skeleton.c' appears to not exist");
+      } else {
+        EOK0(fclose(perr_fp) && "internal test fail");
+        EOK0(fclose(perr_fp) && "should fail with bad file descr");
+      }
+      break;
+    }
+
+    case 4:
+      fprintf(stderr, "ENULL\n");
+    {
+      FILE *perr_fp;
+      ENULL(perr_fp = fopen("skeleton.c", "r")); /* should be OK. */
+      ENULL(perr_fp = fopen("file_not_exist", "r")); /* should fail. */
+      break;
+    }
+
+    case 5:
+      fprintf(stderr, "ABRT\n");
+      ABRT("ABRT test");
+      break;
+
+    default: /* ABRT */
+      ABRT("unknown option, aborting.");
   }
 
 #ifdef _WIN32
