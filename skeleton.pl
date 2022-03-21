@@ -14,24 +14,30 @@ use strict;
 use warnings;
 use Getopt::Std;
 use File::Basename;
+use Carp;
 
 # globals
 my $tool = basename($0);
-my $usage_str = "$tool [-h] [file ...]";
+my $usage_str = "$tool [-h] [-o out_file] [file ...]";
 
 # process options.
-use vars qw($opt_h);
-getopts('h') || usage();  # if -h had a value, it would be "h:"
+use vars qw($opt_h $opt_o);
+getopts('ho:') || usage();
 
 if (defined($opt_h)) {
   help();  # if -h had a value, it would be in $opt_h
 }
 
+my $out_fd;
+if (defined($opt_o)) {
+  open($out_fd, ">", $opt_o) or die("Error opening '$opt_o': $!");
+} else {
+  $out_fd = *STDOUT;
+}
+
 # Main loop; read each line in each file.
 while (<>) {
   chomp;  # remove trailing \n
-
-  ###print "File: $ARGV, line: $.: '$_'\n";
 
   # glue continuation lines and strip comments, leading/trailing spaces, and blank lines.
   if (s/\\$//) {
@@ -42,6 +48,7 @@ while (<>) {
   next if (/^\s*$/);
 
   # do rest of work.
+  print $out_fd "??? File: $ARGV, line: $.: '$_'\n";
 } continue {  # This continue clause makes "$." give line number within file.
   close ARGV if eof;
 }
@@ -56,8 +63,22 @@ exit(0);
 sub mycroak {
   my ($msg) = @_;
 
-  croak("Error, $ARGV:$., $msg");
+  # Print input file name and line number.
+  croak("Error, input_file:line=$ARGV:$., $msg");
 }  # mycroak
+
+
+sub assrt {
+  my ($assertion, $msg) = @_;
+
+  if (! ($assertion)) {
+    if (defined($msg)) {
+      mycroak("Assertion failed, $msg");
+    } else {
+      mycroak("Assertion failed");
+    }
+  }
+}  # assrt
 
 
 sub usage {
@@ -82,6 +103,7 @@ sub help {
 Usage: $usage_str
 Where:
     -h - help
+    -o out_file - output file (default: STDOUT).
     file ... - zero or more input files.  If omitted, inputs from stdin.
 
 __EOF__
