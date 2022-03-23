@@ -37,7 +37,7 @@ extern "C" {
     char errstr_[1024]; \
     strerror_s(errno_, errstr_, sizeof(errstr_)); \
     fprintf(stderr, "ERROR (%s line %d): %s errno=%u ('%s')\n", \
-      __FILE__, __LINE__, s_, errno, errstr_); \
+      __FILE__, __LINE__, s_, errno_, errstr_); \
     fflush(stderr); \
     exit(1); \
   } while (0)
