@@ -18,19 +18,18 @@ use Carp;
 
 # globals
 my $tool = basename($0);
-my $usage_str = "$tool [-h] [-o out_file] [file ...]";
 
 # process options.
 use vars qw($opt_h $opt_o);
-getopts('ho:') || usage();
+getopts('ho:') || mycroak("getopts failure");
 
 if (defined($opt_h)) {
-  help();  # if -h had a value, it would be in $opt_h
+  help();
 }
 
 my $out_fd;
 if (defined($opt_o)) {
-  open($out_fd, ">", $opt_o) or die("Error opening '$opt_o': $!");
+  open($out_fd, ">", $opt_o) or mycroak("Error opening '$opt_o': $!");
 } else {
   $out_fd = *STDOUT;
 }
@@ -63,8 +62,12 @@ exit(0);
 sub mycroak {
   my ($msg) = @_;
 
-  # Print input file name and line number.
-  croak("Error, input_file:line=$ARGV:$., $msg");
+  if (defined($ARGV)) {
+    # Print input file name and line number.
+    croak("Error (use -h for help): input_file:line=$ARGV:$., $msg");
+  } else {
+    croak("Error (use -h for help): $msg");
+  }
 }  # mycroak
 
 
@@ -81,18 +84,6 @@ sub assrt {
 }  # assrt
 
 
-sub usage {
-  my($err_str) = @_;
-
-  if (defined $err_str) {
-    print STDERR "$tool: $err_str\n\n";
-  }
-  print STDERR "Usage: $usage_str\n\n";
-
-  exit(1);
-}  # usage
-
-
 sub help {
   my($err_str) = @_;
 
@@ -100,8 +91,8 @@ sub help {
     print "$tool: $err_str\n\n";
   }
   print <<__EOF__;
-Usage: $usage_str
-Where:
+Usage: $tool [-h] [-o out_file] [file ...]
+Where ('R' indicates required option):
     -h - help
     -o out_file - output file (default: STDOUT).
     file ... - zero or more input files.  If omitted, inputs from stdin.
