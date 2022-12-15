@@ -12,6 +12,13 @@
 # restrictions.  This work is published from: United States.  The project home
 # is https://github.com/fordsfords/skeleton
 
+# Common usage for ASSRT:
+# ASSRT "$? -eq 0"
+ASSRT() {
+  eval "test $1"
+  if [ $? -ne 0 ]; then echo "ASSRT ERROR `basename ${BASH_SOURCE[1]}`:${BASH_LINENO[0]}, not true: '$1'" >&2; exit 1; fi
+}  # ASSRT
+
 # Can call usage with an optional error message
 # See TOOL_USAGE below
 usage() {
