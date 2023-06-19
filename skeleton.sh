@@ -12,12 +12,7 @@
 # restrictions.  This work is published from: United States.  The project home
 # is https://github.com/fordsfords/skeleton
 
-# Common usage for ASSRT:
-# ASSRT "$? -eq 0"
-ASSRT() {
-  eval "test $1"
-  if [ $? -ne 0 ]; then echo "ASSRT ERROR `basename ${BASH_SOURCE[1]}`:${BASH_LINENO[0]}, not true: '$1'" >&2; exit 1; fi
-}  # ASSRT
+# Another interesting skeleton: https://github.com/fordsfords/daemon.sh
 
 # Can call usage with an optional error message
 # See TOOL_USAGE below
@@ -103,19 +98,30 @@ if [ $RM_TMP -eq 1 ];then cd $IWD;rm -f $TMP_FILE*;fi
 exit $EXIT_STAT
 
 
-# Some useful code fragments
+##############################################################################
+# Useful Code Fragments
+##############################################################################
 
+# Example: blah; ASSRT "$? -eq 0"
+ASSRT() {
+  eval "test $1"
+
+  if [ $? -ne 0 ]; then
+    echo "ASSRT ERROR `date`: `basename ${BASH_SOURCE[1]}`:${BASH_LINENO[0]}, not true: '$1'" >&2
+    exit 1
+  fi
+}  # ASSRT
 
 RUNNING_PIDS=""
 kill_pids()
 {
   if [ -n "$RUNNING_PIDS" ]; then :
-    if [ "$EXIT_STAT" -ne 0 ]; then echo "`date` kill $RUNNING_PIDS"; fi
-    kill $RUNNING_PIDS 2>&1 | egrep -v "No such process"
+    if [ "$EXIT_STAT" -ne 0 ]; then echo "kill_pids `date`: killing $RUNNING_PIDS"; fi
+    kill $RUNNING_PIDS 2>&1   ### | egrep -v "No such process"
   fi
 }
 
-trap "echo "INTERRUPT" >&2; kill_pids; exit 1" HUP INT QUIT TERM
+trap "echo "INTERRUPT `date`" >&2; kill_pids; exit 1" HUP INT QUIT TERM
 
 tcpdump -i en0 -w skeleton.pcap &
 TCPDUMP_PID="$!"; echo "`date` TCPDUMP_PID=$TCPDUMP_PID"; RUNNING_PIDS="$RUNNING_PIDS $TCPDUMP_PID"
