@@ -91,7 +91,7 @@ shift `expr $OPTIND - 1`  # Make $1 the first positional param after options
 cd `dirname $TMP_FILE`; TMP_FILE_DIR=`/bin/pwd`; TMP_FILE_FN=`basename $TMP_FILE`; TMP_FILE="$TMP_FILE_DIR/$TMP_FILE_FN"; cd $IWD
 
 # If the user hits control-C, clean up the temp file (if desired)
-trap "if [ $RM_TMP -eq 1 ]; then cd $IWD;rm -f $TMP_FILE*;fi;exit 1" 1 2 3 15
+trap "if [ $RM_TMP -eq 1 ]; then cd $IWD;rm -f $TMP_FILE*;fi;exit 1" HUP INT QUIT TERM
 
 ##############################################################################
 # MAIN CODE
@@ -101,3 +101,23 @@ trap "if [ $RM_TMP -eq 1 ]; then cd $IWD;rm -f $TMP_FILE*;fi;exit 1" 1 2 3 15
 if [ $RM_TMP -eq 1 ];then cd $IWD;rm -f $TMP_FILE*;fi
 
 exit $EXIT_STAT
+
+
+# Some useful code fragments
+
+
+RUNNING_PIDS=""
+kill_pids()
+{
+  if [ -n "$RUNNING_PIDS" ]; then :
+    if [ "$EXIT_STAT" -ne 0 ]; then echo "`date` kill $RUNNING_PIDS"; fi
+    kill $RUNNING_PIDS 2>&1 | egrep -v "No such process"
+  fi
+}
+
+trap "echo "INTERRUPT" >&2; kill_pids; exit 1" HUP INT QUIT TERM
+
+tcpdump -i en0 -w skeleton.pcap &
+TCPDUMP_PID="$!"; echo "`date` TCPDUMP_PID=$TCPDUMP_PID"; RUNNING_PIDS="$RUNNING_PIDS $TCPDUMP_PID"
+
+kill_pids()
