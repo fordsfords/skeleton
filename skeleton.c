@@ -1,9 +1,9 @@
-/* skeleton.c - typical starting point for how I like to write command-line
- * tools. See https://github.com/fordsfords/skeleton
+/* skeleton.c - generic C "main" test module.
+ * See https://github.com/fordsfords/skeleton
  * This tries to be portable between Mac, Linux, and Windows.
  */
 /*
-# This code and its documentation is Copyright 2002-2021 Steven Ford
+# This code and its documentation is Copyright 2023 Steven Ford
 # and licensed "public domain" style under Creative Commons "CC0":
 #   http://creativecommons.org/publicdomain/zero/1.0/
 # To the extent possible under law, the contributors to this project have
@@ -13,18 +13,10 @@
 # is https://github.com/fordsfords/skeleton
 */
 
+#include "cprt.h"
+
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
-#include <errno.h>
-#ifdef _WIN32
-  #include <winsock2.h>
-  #define SLEEP(s) Sleep((s)*1000)
-#else
-  #include <stdlib.h>
-  #include <unistd.h>
-  #define SLEEP(s) sleep(s)
-#endif
 
 #include "skeleton.h"
 
@@ -42,10 +34,10 @@ void usage(char *msg) {
 }
 
 void help() {
-  fprintf(stderr, "%s\n", usage_str);
-  fprintf(stderr, "where:\n"
-                  "  -h : print help\n"
-                  "  -t testnum : run specified test\n");
+  printf("%s\n", usage_str);
+  printf("Where:\n"
+      "  -h : print help\n"
+      "  -t testnum : run specified test\n");
   exit(0);
 }
 
@@ -64,7 +56,7 @@ int main(int argc, char **argv)
   while ((opt = getopt(argc, argv, "ht:")) != EOF) {
     switch (opt) {
       case 't':
-        SAFE_ATOI(optarg, o_testnum);
+        CPRT_ATOI(optarg, o_testnum);
         break;
       case 'h':
         help();
@@ -81,20 +73,20 @@ int main(int argc, char **argv)
       break;
 
     case 1:
-      fprintf(stderr, "ASSRT\n");
-      ASSRT(o_testnum == 1 && "internal test fail");
-      ASSRT(o_testnum != 1 && "should fail");
+      fprintf(stderr, "CPRT_ASSERT\n");
+      CPRT_ASSERT(o_testnum == 1 && "internal test fail");
+      CPRT_ASSERT(o_testnum != 1 && "should fail");
       break;
 
     case 2:
     {
       FILE *perr_fp;
-      fprintf(stderr, "PERR\n");
+      fprintf(stderr, "CPRT_PERRNO\n");
       perr_fp = fopen("file_not_exist", "r");
       if (perr_fp == NULL) {
-        PERR("errno should be 'file not found':");
+        CPRT_PERRNO("errno should be 'file not found':");
       } else {
-        ABRT("Internal test failure: 'file_not_exist' appears to exist");
+        CPRT_ABORT("Internal test failure: 'file_not_exist' appears to exist");
       }
       break;
     }
@@ -102,13 +94,13 @@ int main(int argc, char **argv)
     case 3:
     {
       FILE *perr_fp;
-      fprintf(stderr, "EOK0\n");
+      fprintf(stderr, "CPRT_EOK0\n");
       perr_fp = fopen("skeleton.c", "r");
       if (perr_fp == NULL) {
-        ABRT("Internal test failure: 'skeleton.c' appears to not exist");
+        CPRT_ABORT("Internal test failure: 'skeleton.c' appears to not exist");
       } else {
-        EOK0(fclose(perr_fp) && "internal test fail");
-        EOK0(fclose(perr_fp) && "should fail with bad file descr");
+        CPRT_EOK0(fclose(perr_fp) && "internal test fail");
+        CPRT_EOK0(fclose(perr_fp) && "should fail with bad file descr");
       }
       break;
     }
@@ -116,26 +108,26 @@ int main(int argc, char **argv)
     case 4:
     {
       FILE *perr_fp;
-      fprintf(stderr, "ENULL\n");
-      ENULL(perr_fp = fopen("skeleton.c", "r")); /* should be OK. */
-      ENULL(perr_fp = fopen("file_not_exist", "r")); /* should fail. */
+      fprintf(stderr, "CPRT_ENULL\n");
+      CPRT_ENULL(perr_fp = fopen("skeleton.c", "r")); /* should be OK. */
+      CPRT_ENULL(perr_fp = fopen("file_not_exist", "r")); /* should fail. */
       break;
     }
 
     case 5:
-      fprintf(stderr, "ABRT\n");
-      ABRT("ABRT test");
+      fprintf(stderr, "CPRT_ABORT\n");
+      CPRT_ABORT("CPRT_ABORT test");
       break;
 
     case 6:
-      fprintf(stderr, "SLEEP_SEC\n");
-      SLEEP_SEC(1);
+      fprintf(stderr, "CPRT_SLEEP_SEC\n");
+      CPRT_SLEEP_SEC(1);
       fprintf(stderr, "Done\n");
       break;
 
     case 7:
-      fprintf(stderr, "SLEEP_MS 1000\n");
-      SLEEP_MS(1000);
+      fprintf(stderr, "CPRT_SLEEP_MS 1000\n");
+      CPRT_SLEEP_MS(1000);
       fprintf(stderr, "Done\n");
       break;
 
@@ -154,11 +146,12 @@ int main(int argc, char **argv)
       break;
     }
 
-    default: /* ABRT */
-      ABRT("unknown option, aborting.");
+    default: /* CPRT_ABORT */
+      CPRT_ABORT("unknown option, aborting.");
   }
 
 #ifdef _WIN32
   WSACleanup();
 #endif
+  return 0;
 }  /* main */
