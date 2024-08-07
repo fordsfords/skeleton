@@ -6,7 +6,7 @@ SINGLE_T="0"  # Do all tests
 if [ -n "$1" ]; then SINGLE_T="$1"; fi
 
 F="tst.sh"  # Could also use `basename $0`
-B="./tst"   # Executable under test.
+B="./skeleton"   # Executable under test.
 
 TEST() {
   techo "Test $T [$F:${BASH_LINENO[0]}]: $1" >$B.$T.log
@@ -22,6 +22,7 @@ ASSRT() {
   fi
 }  # ASSRT
 
+./bld.sh; ASSRT "$? -eq 0"
 
 T=1
 if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
@@ -30,8 +31,6 @@ if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
   # Run program. Include command-line options, etc.
   $B 2>&1 | tee -a $B.$T.log
   ST=${PIPESTATUS[0]}; ASSRT "$ST -eq 0"  # Make sure program exited with good status.
-  # Extract some outputs and make sure they are in range.
-  RATE=`sed <$B.$T.log -n 's/.*result_rate=\([0-9]*\).*/\1/p'`; ASSRT "$RATE -gt 10000 -a $RATE -lt 99999"
 fi
 
 # T=2
