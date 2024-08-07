@@ -10,7 +10,7 @@ for F in *.md; do :
   fi
 done
 
-rm skeleton
+rm -f skeleton
 
 echo "Building code"
 
