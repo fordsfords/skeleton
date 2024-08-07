@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # tst.sh - generic test script
 #   Tip: script -c ./tst.sh tst.log
 
@@ -9,7 +9,7 @@ F="tst.sh"  # Could also use `basename $0`
 B="./skeleton"   # Executable under test.
 
 TEST() {
-  techo "Test $T [$F:${BASH_LINENO[0]}]: $1" >$B.$T.log
+  echo "Test $T [$F:${BASH_LINENO[0]}]: $1 `date`" >$B.$T.log
   cat $B.$T.log
 }  # TEST
 
@@ -17,7 +17,7 @@ ASSRT() {
   eval "test $1"
 
   if [ $? -ne 0 ]; then
-    echo "ASSRT ERROR, Test $T [$F:${BASH_LINENO[0]}]: not true: '$1'" | tee -a $B.$T.log
+    echo "ASSRT ERROR, Test $T [$F:${BASH_LINENO[0]}]: not true: '$1' `date`" | tee -a $B.$T.log
     exit 1
   fi
 }  # ASSRT
