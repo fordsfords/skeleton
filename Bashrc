@@ -1,0 +1,25 @@
+# Rename this to ".bashrc" in $HOME for my minimal bash environment
+
+# I hate color terminals.
+export TERM="xterm-mono"
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+
+# I used emacs for years. I like vi better now.
+set -o vi
+
+# Pre-pend on PATH
+for D in /usr/local/bin $HOME/bin; do :
+  if ! [[ ":$PATH:" =~ ":$D:" ]]; then export PATH="$D:$PATH"; fi
+done
+# Append on PATH
+for D in /usr/bin /usr/local/sbin /usr/sbin /sbin /bin; do :
+  if ! [[ ":$PATH:" =~ ":$D:" ]]; then export PATH="$PATH:$D"; fi
+done
+
+# I don't use many aliases.
+unalias -a
+alias ls="ls -F"
