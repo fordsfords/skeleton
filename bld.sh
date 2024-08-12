@@ -16,4 +16,10 @@ echo "Building code"
 
 gcc -Wall -g -o skeleton -pthread skeleton.c cprt.c; if [ $? -ne 0 ]; then exit 1; fi
 
+echo "flake8 skeleton.py"
+flake8 skeleton.py; if [ $? -ne 0 ]; then exit 1; fi
+
+echo "pylint skeleton.py"
+pylint -sn -r n skeleton.py; if [ $? -ne 0 ]; then exit 1; fi
+
 echo "Build OK"
