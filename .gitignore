@@ -12,6 +12,7 @@ tmp.*
 *.out
 *.pcap
 .DS_Store
+.mypy_cache
 
 # Executable
 a.out
@@ -21,6 +22,7 @@ skeleton
 *.d
 
 # Object files
+__pycache__
 *.o
 *.ko
 *.obj

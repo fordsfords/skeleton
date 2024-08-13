@@ -26,7 +26,7 @@ def process_line(line):
           f' - bad command "{line}"')
 
 
-def main():
+def main() -> None:
     """
     Skeletal main.
     """

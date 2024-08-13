@@ -22,4 +22,16 @@ flake8 skeleton.py; if [ $? -ne 0 ]; then exit 1; fi
 echo "pylint skeleton.py"
 pylint -sn -r n skeleton.py; if [ $? -ne 0 ]; then exit 1; fi
 
+echo mypy --check-untyped-defs skeleton.py
+mypy --check-untyped-defs --no-error-summary skeleton.py
+
+echo "flake8 skeleton_c.py"
+flake8 skeleton_c.py; if [ $? -ne 0 ]; then exit 1; fi
+
+echo "pylint skeleton_c.py"
+pylint -sn -r n skeleton_c.py; if [ $? -ne 0 ]; then exit 1; fi
+
+echo mypy --check-untyped-defs skeleton_c.py
+mypy --check-untyped-defs --no-error-summary skeleton_c.py
+
 echo "Build OK"
