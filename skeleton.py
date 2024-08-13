@@ -17,8 +17,7 @@ class Main:
     def __init__(self):
         parser = argparse.ArgumentParser(
             description="Demo script to show when argparse displays help.",
-            epilog="This text appears at the end of the help message."
-        )
+            epilog="This text appears at the end of the help message.")
         parser.add_argument('-n', '--name', help="Name")
         parser.add_argument('-i', '--id', type=int, help="Numeric ID")
         parser.add_argument('-q', '--quiet', action='store_true',
@@ -45,7 +44,7 @@ class Main:
         print(f'Error [{fileinput.filename()}:{fileinput.filelineno()}]'
               f' - bad command "{line}"')
 
-    def main(self):
+    def main(self) -> None:
         """ Main. """
 
         if not self.args.quiet:
