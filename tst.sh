@@ -33,5 +33,16 @@ if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
   ST=${PIPESTATUS[0]}; ASSRT "$ST -eq 0"  # Make sure program exited with good status.
 fi
 
-# T=2
+T=2
+if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
+  TEST "Description of test."
+  # Change data files, environment, etc. for this test case.
+  # Run program. Include command-line options, etc.
+  echo "echo 123abc" | $B.py 2>&1 | tee -a $B.$T.log
+  ST=${PIPESTATUS[0]}; ASSRT "$ST -eq 0"  # Make sure program exited with good status.
+  egrep "123abc" $B.$T.log >/dev/null
+  ASSRT "$? -eq 0"
+fi
+
+# T=3
 # ...
