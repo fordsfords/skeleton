@@ -18,8 +18,10 @@ class Main:
         parser = argparse.ArgumentParser(
             description="Demo script to show when argparse displays help.",
             epilog="This text appears at the end of the help message.")
+        # Can use: default=blah, required=True
         parser.add_argument('-n', '--name', help="Name")
         parser.add_argument('-i', '--id', type=int, help="Numeric ID")
+        # Can use: action='count', default=0
         parser.add_argument('-q', '--quiet', action='store_true',
                             help="suppress informational messages.")
         parser.add_argument('files', nargs='*',
