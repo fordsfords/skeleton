@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-skeleton2.py - Skeletal example.
+skeleton.py - Skeletal example.
 """
 
 import sys
