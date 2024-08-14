@@ -22,7 +22,9 @@ ASSRT() {
   fi
 }  # ASSRT
 
+
 ./bld.sh; ASSRT "$? -eq 0"
+
 
 T=1
 if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
