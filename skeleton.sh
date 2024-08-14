@@ -102,15 +102,6 @@ exit $EXIT_STAT
 # Useful Code Fragments
 ##############################################################################
 
-# Example: blah; ASSRT "$? -eq 0"
-ASSRT() {
-  eval "test $1"
-
-  if [ $? -ne 0 ]; then
-    echo "ASSRT ERROR, `date`: `basename ${BASH_SOURCE[1]}`:${BASH_LINENO[0]}, not true: '$1'" >&2
-    exit 1
-  fi
-}  # ASSRT
 
 RUNNING_PIDS=""
 kill_pids()
@@ -121,10 +112,13 @@ kill_pids()
   fi
 }
 
+
 trap "echo "INTERRUPT, `date`" >&2; kill_pids; exit 1" HUP INT QUIT TERM
 trap "SAMPLE=1" USR1
 
+
 tcpdump -i en0 -w skeleton.pcap &
 TCPDUMP_PID="$!"; echo "fyi, `date`: TCPDUMP_PID=$TCPDUMP_PID"; RUNNING_PIDS="$RUNNING_PIDS $TCPDUMP_PID"
+
 
 NUM_GOODS=`egrep "^Good: daemon started" tst.log | wc -l` ; ASSRT "$NUM_GOODS -eq 1"
