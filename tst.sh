@@ -28,7 +28,7 @@ ASSRT() {
 
 T=1
 if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
-  TEST "Description of test."
+  TEST "Run C skeleton."
   # Change data files, environment, etc. for this test case.
   # Run program. Include command-line options, etc.
   $B 2>&1 | tee -a $B.$T.log
@@ -37,7 +37,7 @@ fi
 
 T=2
 if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
-  TEST "Description of test."
+  TEST "Run Python skeleton."
   # Change data files, environment, etc. for this test case.
   # Run program. Include command-line options, etc.
   echo "echo 123abc" | $B.py 2>&1 | tee -a $B.$T.log
