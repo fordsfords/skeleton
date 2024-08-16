@@ -17,37 +17,43 @@ class Main:
     def __init__(self):
         parser = argparse.ArgumentParser(
             description="Demo script to show when argparse displays help.",
-            epilog="This text appears at the end of the help message.")
+            epilog="This text appears at the end of the help message.",
+        )
         # Can use: default=blah, required=True
-        parser.add_argument('-n', '--name', help="Name")
-        parser.add_argument('-i', '--id', type=int, help="Numeric ID")
+        parser.add_argument("-n", "--name", help="Name")
+        parser.add_argument("-i", "--id", type=int, help="Numeric ID")
         # Can use: action='count', default=0
-        parser.add_argument('-q', '--quiet', action='store_true',
-                            help="suppress informational messages.")
-        parser.add_argument('files', nargs='*',
-                            help="Input files (use - for stdin)")
+        parser.add_argument(
+            "-q",
+            "--quiet",
+            action="store_true",
+            help="suppress informational messages.",
+        )
+        parser.add_argument("files", nargs="*", help="Input files (use - for stdin)")
 
         self.args = parser.parse_args()
 
-    def process_line(self, line) -> None:
+    def process_line(self, line):
         """
         Skeletal function.
         """
 
-        if re.search(r'^quit$', line):
+        if re.search(r"^quit$", line):
             sys.exit(0)
 
-        match = re.search(r'^echo (.*)$', line)
+        match = re.search(r"^echo (.*)$", line)
         if match:
             if not self.args.quiet:
                 print(match.group(1))
             return
 
-        print(f'Error [{fileinput.filename()}:{fileinput.filelineno()}]'
-              f' - bad command "{line}"')
+        print(
+            f"Error [{fileinput.filename()}:{fileinput.filelineno()}]"
+            f' - bad command "{line}"'
+        )
 
-    def main(self) -> None:
-        """ Main. """
+    def main(self):
+        """Main."""
 
         if not self.args.quiet:
             for arg, value in vars(self.args).items():

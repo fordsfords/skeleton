@@ -13,6 +13,7 @@ tmp.*
 *.pcap
 .DS_Store
 .mypy_cache
+.ruff_cache
 
 # Executable
 a.out
