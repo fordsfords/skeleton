@@ -9,6 +9,7 @@ import fileinput
 import re
 
 
+# pylint: disable=R0903
 class Main:
     """
     Main program.
