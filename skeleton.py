@@ -63,6 +63,8 @@ class Main:
         # Similar to Perl's 'while (<>) {' diamond operator.
         with fileinput.input(files=self.args.files) as file_input:
             for line in file_input:
+                # current_file = file_input.filename()
+                # line_num = file_input.filelineno()  # line within current file
                 self.process_line(line.strip())
 
 
