@@ -27,6 +27,6 @@ echo "pylint skeleton.py"
 pylint -sn -r n skeleton.py; if [ $? -ne 0 ]; then exit 1; fi
 
 echo mypy skeleton.py
-mypy --check-untyped-defs --no-error-summary skeleton.py
+mypy --strict --no-error-summary skeleton.py
 
 echo "Build OK"

@@ -34,7 +34,7 @@ rm -f *.log core.*
 T=1
 if [ "$SINGLE_T" -eq 0 -o "$SINGLE_T" -eq "$T" ]; then :
   TEST
-  $B x.lcc 2>&1 | tee -a $B.$T.log;  ST=${PIPESTATUS[0]}; ASSRT "$ST -eq 0"
-  # egrep "^test[0-9 ]*: success" $B.$T.log >/dev/null; ST=$?; ASSRT "$ST -eq 0"
+  $B test1.lcc 2>&1 | tee -a $B.$T.log;  ST=${PIPESTATUS[0]}; ASSRT "$ST -ne 0"
+  egrep 'line must end with semicolon.*blah"' $B.$T.log >/dev/null; ST=$?; ASSRT "$ST -eq 0"
   OK
 fi

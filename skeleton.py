@@ -7,6 +7,7 @@ import sys
 import argparse
 import fileinput
 import re
+# from typing import TextIO, Dict, Any, List
 
 
 # pylint: disable=R0903
@@ -15,7 +16,7 @@ class Main:
     Main program.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         parser = argparse.ArgumentParser(
             description="Demo script to show when argparse displays help.",
             epilog="This text appears at the end of the help message.",
@@ -34,7 +35,7 @@ class Main:
 
         self.args = parser.parse_args()
 
-    def process_line(self, line):
+    def process_line(self, line: str) -> None:
         """
         Skeletal function.
         """
@@ -53,7 +54,7 @@ class Main:
             f' - bad command "{line}"'
         )
 
-    def main(self):
+    def main(self) -> None:
         """Main."""
 
         if not self.args.quiet:
