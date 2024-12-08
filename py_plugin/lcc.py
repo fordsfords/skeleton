@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # lcc.py
-"""Program to provide a higher-level language for lsim."""
+"""Program to provide a higher-level language for lsim.
+   Claude.ai helped me with significant parts of the logic."""
 
 from abc import ABC, abstractmethod
 import importlib
