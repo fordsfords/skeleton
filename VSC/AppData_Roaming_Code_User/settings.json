@@ -1,0 +1,28 @@
+{
+    "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+    "security.workspace.trust.untrustedFiles": "open",
+    "cSpell.userWords": [
+        "ASSRT",
+        "mdtoc"
+    ],
+    "editor.minimap.enabled": false,
+    "cSpell.enabledFileTypes": {
+        "cpp": true
+    },
+    "workbench.colorTheme": "Default Light Modern",
+    "vim.surround": false,
+    "vim.highlightedyank.duration": 100,
+    "workbench.settings.applyToAllProfiles": [
+        "vim.highlightedyank.duration",
+        "editor.cursorSurroundingLines"
+    ],
+    "editor.cursorSurroundingLines": 0,
+    "editor.stickyScroll.scrollWithEditor": false,
+    "workbench.tree.enableStickyScroll": false,
+    "terminal.integrated.stickyScroll.maxLineCount": 1,
+    "editor.stickyScroll.enabled": false,
+    "editor.stickyScroll.maxLineCount": 1,
+    "editor.occurrencesHighlight": "off"
+}

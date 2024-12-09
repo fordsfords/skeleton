@@ -1,0 +1,52 @@
+Here's what Claude.ai has to say about the user settings file:
+
+jsonCopy"security.allowedUNCHosts": ["wsl.localhost"]
+
+  This allows VS Code to access network paths from WSL (Windows Subsystem for Linux) safely.
+
+jsonCopy"security.workspace.trust.untrustedFiles": "open"
+
+  Tells VS Code to open files from untrusted sources without prompting you. A bit less secure but more convenient.
+
+jsonCopy"cSpell.userWords": ["ASSRT", "mdtoc"]
+
+  These are custom words you've added to the spell checker dictionary to prevent it from flagging them as misspellings.
+
+jsonCopy"editor.minimap.enabled": false
+
+  Turns off that tiny code preview on the right side of the editor.
+
+jsonCopy"cSpell.enabledFileTypes": {"cpp": true}
+
+  Enables spell checking specifically for C++ files.
+
+jsonCopy"workbench.colorTheme": "Default Light Modern"
+
+  Sets your color scheme to the light theme.
+
+jsonCopy"vim.surround": false
+
+  Disables Vim's surround feature (the ability to wrap text in parentheses, quotes, etc.).
+
+jsonCopy"vim.highlightedyank.duration": 100
+
+  When you yank (copy) text in Vim mode, it highlights it briefly - this sets that highlight to last 100ms.
+
+jsonCopy"workbench.settings.applyToAllProfiles": [...]
+
+  Makes certain settings (the yankduration and cursor surrounding lines) apply across all your VS Code profiles.
+
+jsonCopy"editor.cursorSurroundingLines": 0
+"editor.stickyScroll.scrollWithEditor": false
+"workbench.tree.enableStickyScroll": false
+"terminal.integrated.stickyScroll.maxLineCount": 1
+"editor.stickyScroll.enabled": false
+"editor.stickyScroll.maxLineCount": 1
+
+  This whole block is about scroll behavior - you've basically turned off most of the "sticky" scrolling features that keep certain elements visible while scrolling.
+
+jsonCopy"editor.occurrencesHighlight": "off"
+
+  Disables automatic highlighting of other occurrences when you select a word.
+
+  It looks like you prefer a clean, minimal interface without too many visual bells and whistles!
