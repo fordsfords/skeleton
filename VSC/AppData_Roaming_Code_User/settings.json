@@ -1,28 +1,28 @@
 {
-    "security.allowedUNCHosts": [
-        "wsl.localhost"
-    ],
+    "workbench.colorTheme": "Default Light Modern",
+    "cmake.configureOnOpen": true,
     "security.workspace.trust.untrustedFiles": "open",
     "cSpell.userWords": [
-        "ASSRT",
-        "mdtoc"
+        "datacenter",
+        "datacenters",
+        "hotlinked",
+        "Informatica"
     ],
     "editor.minimap.enabled": false,
-    "cSpell.enabledFileTypes": {
-        "cpp": true
-    },
-    "workbench.colorTheme": "Default Light Modern",
-    "vim.surround": false,
-    "vim.highlightedyank.duration": 100,
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.inlineSuggest.edits.experimental.enabled": false,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.quickSuggestionsDelay": 200,
     "workbench.settings.applyToAllProfiles": [
-        "vim.highlightedyank.duration",
-        "editor.cursorSurroundingLines"
+        "editor.cursorSurroundingLines",
+        "editor.occurrencesHighlight"
     ],
-    "editor.cursorSurroundingLines": 0,
+    "editor.stickyScroll.maxLineCount": 1,
     "editor.stickyScroll.scrollWithEditor": false,
     "workbench.tree.enableStickyScroll": false,
-    "terminal.integrated.stickyScroll.maxLineCount": 1,
     "editor.stickyScroll.enabled": false,
-    "editor.stickyScroll.maxLineCount": 1,
-    "editor.occurrencesHighlight": "off"
+    "explorer.confirmDelete": false,
+    "editor.occurrencesHighlight": "off",
+    "editor.cursorSurroundingLines": 0,
+    "vim.ignorecase": false
 }
