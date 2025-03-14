@@ -8,6 +8,11 @@
             "type": "shell",
             "command": "./bld.sh",
             "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -23,9 +28,6 @@
                     "file": 1,
                     "line": 2
                 }
-            },
-            "options": {
-                "cwd": "${workspaceFolder}"
             },
             "presentation": {
                 "reveal": "always",
