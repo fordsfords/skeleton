@@ -7,7 +7,7 @@
         "datacenter",
         "datacenters",
         "hotlinked",
-        "Informatica"
+        "Informatica",
         "ASSRT",
         "mdtoc"
     ],
@@ -23,7 +23,7 @@
         "editor.occurrencesHighlight",
         "vim.ignorecase",
         "vim.highlightedyank.duration",
-        "editor.cursorSurroundingLines"
+        "editor.cursorSurroundingLines",
         "editor.stickyScroll.scrollWithEditor",
         "editor.stickyScroll.enabled",
         "editor.stickyScroll.maxLineCount",
@@ -36,9 +36,8 @@
     "editor.stickyScroll.enabled": false,
     "editor.stickyScroll.maxLineCount": 1,
     "editor.occurrencesHighlight": "off",
-    "editor.occurrencesHighlight": "off"
     "explorer.confirmDelete": false,
     "terminal.integrated.stickyScroll.maxLineCount": 1,
-    "vim.ignorecase": false
-    "vim.highlightedyank.duration": 100,
+    "vim.ignorecase": false,
+    "vim.highlightedyank.duration": 100
 }
