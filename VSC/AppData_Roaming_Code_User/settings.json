@@ -19,6 +19,16 @@
     "cSpell.enabledFileTypes": {
         "cpp": true
     },
+    "workbench.tree.enableStickyScroll": false,
+    "editor.cursorSurroundingLines": 0,
+    "editor.stickyScroll.scrollWithEditor": false,
+    "editor.stickyScroll.enabled": false,
+    "editor.stickyScroll.maxLineCount": 1,
+    "editor.occurrencesHighlight": "off",
+    "explorer.confirmDelete": false,
+    "terminal.integrated.stickyScroll.maxLineCount": 1,
+    "vim.ignorecase": false,
+    "vim.highlightedyank.duration": 100
     "workbench.settings.applyToAllProfiles": [
         "editor.occurrencesHighlight",
         "vim.ignorecase",
@@ -30,14 +40,4 @@
         "editor.occurrencesHighlight",
         "editor.stickyScroll.enabled"
     ],
-    "workbench.tree.enableStickyScroll": false,
-    "editor.cursorSurroundingLines": 0,
-    "editor.stickyScroll.scrollWithEditor": false,
-    "editor.stickyScroll.enabled": false,
-    "editor.stickyScroll.maxLineCount": 1,
-    "editor.occurrencesHighlight": "off",
-    "explorer.confirmDelete": false,
-    "terminal.integrated.stickyScroll.maxLineCount": 1,
-    "vim.ignorecase": false,
-    "vim.highlightedyank.duration": 100
 }

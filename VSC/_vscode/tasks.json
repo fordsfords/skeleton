@@ -29,6 +29,9 @@
                     "line": 2
                 }
             },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
