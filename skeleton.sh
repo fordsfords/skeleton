@@ -21,7 +21,7 @@ usage() {
 
   echo $TOOL_USAGE 1>&2; echo "" 1>&2
 
-  if [ $RM_TMP -eq 1 ]; then cd $IWD; rm -f $TMP_FILE*; fi
+  if (( $RM_TMP )); then cd $IWD; rm -f $TMP_FILE*; fi
   exit 1
 }
 
