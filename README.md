@@ -2,6 +2,8 @@
 A set of personal skeleton program files in various languages.
 These are just what I like to use; I don't claim they will be interesting
 to anybody else.
+Thanks to Claude.ai for various bits and assitance,
+especially in modernizing skeleton.sh.
 
 
 ## Table of contents
