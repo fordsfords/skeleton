@@ -1,17 +1,16 @@
 /* cprt.c - Module for portable functions that can't be done
  *   with macros in the cprt.h file.
- * See https://github.com/fordsfords/cprt
+ * See https://github.com/fordsfords/cprt */
+
+/* This work is dedicated to the public domain under CC0 1.0 Universal:
+ * http://creativecommons.org/publicdomain/zero/1.0/
+ * 
+ * To the extent possible under law, Steven Ford has waived all copyright
+ * and related or neighboring rights to this work. In other words, you can 
+ * use this code for any purpose without any restrictions.
+ * This work is published from: United States.
+ * Project home: https://github.com/fordsfords/cprt
  */
-/*
-# This code and its documentation is Copyright 2002-2021 Steven Ford
-# and licensed "public domain" style under Creative Commons "CC0":
-#   http://creativecommons.org/publicdomain/zero/1.0/
-# To the extent possible under law, the contributors to this project have
-# waived all copyright and related or neighboring rights to this work.
-# In other words, you can use this code for any purpose without any
-# restrictions.  This work is published from: United States.  The project home
-# is https://github.com/fordsfords/cprt
-*/
 
 #if ! defined(_WIN32)
 /* Unix */
@@ -221,8 +220,8 @@ char *cprt_timestamp(char *str, int bufsz, int do_date, int precision)
 }  /* cprt_timestamp */
 
 
-/* Called like printf but prints ms-resolution "delta" timestamp.
- * Also flushes stdout. */
+/* Called like fprintf but prints ms-resolution "delta" timestamp.
+ * Also flushes file. */
 void cprt_vts_fprintf(FILE *fp, const char *format, va_list argp)
 {
   size_t fmt_len, ts_len;
