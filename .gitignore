@@ -18,6 +18,7 @@ tmp.*
 # Executable
 a.out
 skeleton
+core.*
 
 # Prerequisites
 *.d

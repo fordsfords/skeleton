@@ -58,7 +58,8 @@ EXIT_STAT=0
 
 # Option processing
 
-TMP_FILE="/tmp/${TOOL}_$$_tmp"    # default value for -t
+TMP_FILE="/tmp/${TOOL}_$$_tmp"    # default value for -t; allow concurrent use
+# TMP_FILE="${TOOLBASE}.tmp"        # default value for -t; simplified form
 RM_TMP=1     # This flag tells the script to remove temp files before exit
 
 while getopts "ht:" OPTION  # ???
